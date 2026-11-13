@@ -6,6 +6,7 @@ export default authMiddleware({
     "/sign-in(.*)",
     "/sign-up(.*)",
     "/api/properties(.*)",
+    "/api/contact",
   ],
 });
 
