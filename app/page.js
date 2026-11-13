@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import Image from 'next/image';
+import ContactForm from '../components/ContactForm';
 
 export default function HomePage() {
   const services = [
@@ -37,11 +38,9 @@ export default function HomePage() {
         backgroundImage: "url('/placeholder.jpg')"
       }}
     >
-      
       {/* Hero Section */}
       <div className="bg-black text-white py-16 px-10 border-b-4 border-[#D4AF37] relative">
         <div className="container mx-auto flex items-center justify-between">
-          
           <div className="order-last border-2 border-[#D4AF37] p-1 rounded-full overflow-hidden bg-white">
             <Image
               src="/logo.png"
@@ -87,6 +86,9 @@ export default function HomePage() {
           ))}
         </div>
       </div>
+
+      {/* Contact Form (تحت الخدمات) */}
+      <ContactForm />
     </main>
   );
 }
