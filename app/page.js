@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import Image from 'next/image';
+import SudokuGame from '../components/SudokuGame';
 import ContactForm from '../components/ContactForm';
 
 export default function HomePage() {
@@ -65,7 +66,7 @@ export default function HomePage() {
       </div>
 
       {/* Services Section */}
-      <div className="container mx-auto py-12 px-4 bg-black/40 backdrop-blur-sm min-h-screen">
+      <div className="container mx-auto py-12 px-4 bg-black/40 backdrop-blur-sm">
         <h2 className="text-3xl font-semibold text-center mb-10 text-white border-b-2 border-[#D4AF37] w-fit mx-auto pb-2">
           Our Digital Services
         </h2>
@@ -87,8 +88,13 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Contact Form (تحت الخدمات) */}
-      <ContactForm />
+      {/* Sudoku Game */}
+      <SudokuGame />
+
+      {/* Contact Form */}
+      <div id="contact">
+        <ContactForm />
+      </div>
     </main>
   );
 }
