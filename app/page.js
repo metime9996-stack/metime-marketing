@@ -1,6 +1,8 @@
+
 "use client";
 import React from 'react';
 import Image from 'next/image';
+import TeamMarquee from '../components/TeamMarquee';
 import SudokuGame from '../components/SudokuGame';
 import ContactForm from '../components/ContactForm';
 
@@ -87,6 +89,12 @@ export default function HomePage() {
           ))}
         </div>
       </div>
+
+      {/* NEW: Meet The Team */}
+      <TeamMarquee
+        title="Meet The Team"
+        speed={40}
+      />
 
       {/* Sudoku Game */}
       <SudokuGame />

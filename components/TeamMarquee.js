@@ -1,24 +1,23 @@
-
 'use client';
 
 const TEAM = [
   {
-    name: 'Abdallah Mohamed',
+    name: 'Abdallah M. Saeed',
     role: 'Founder & Performance Marketing Lead',
     image: '/team/member1.jpg',
   },
   {
-    name: 'Salah',
+    name: 'Aya Salah',
     role: 'Motion Graphics & AI Specialist',
     image: '/team/member2.jpg',
   },
   {
-    name: 'Shahd',
+    name: 'Shahd Y. Ibrahim',
     role: 'HR & SEO Specialist',
     image: '/team/member3.jpg',
   },
   {
-    name: 'Hazem',
+    name: 'Hazem Emad ',
     role: 'Graphic Designer & Social Media Manager',
     image: '/team/member4.jpg',
   },
@@ -33,21 +32,21 @@ function Card({ person, hidden = false }) {
       {/* Image Container */}
       <div className="
         relative h-72 overflow-hidden rounded-2xl
-        border border-[#D4AF37]/50
-        bg-[#24143D]
+        border border-[#FFA500]/50
+        bg-[#0D1317]
         shadow-xl shadow-black/40
         transition-all duration-500
         group-hover:-translate-y-2
-        group-hover:border-[#62BEC2]
-        group-hover:shadow-[0_15px_40px_rgba(98,190,194,0.18)]
+        group-hover:border-[#00FFFF]
+        group-hover:shadow-[0_15px_40px_rgba(0,255,255,0.18)]
         sm:h-80
       ">
 
         {/* Background */}
         <div className="
           absolute inset-0 flex items-center justify-center
-          bg-gradient-to-br from-[#3B235C] via-[#24143D] to-black
-          text-7xl font-bold text-[#D4AF37]
+          bg-gradient-to-br from-[#121E26] via-[#0D1317] to-black
+          text-7xl font-bold text-[#FFA500]
         ">
           {person.name.charAt(0)}
         </div>
@@ -74,7 +73,7 @@ function Card({ person, hidden = false }) {
         <div className="
           pointer-events-none absolute inset-0 z-20
           bg-gradient-to-t
-          from-[#160D27]/90 via-transparent to-[#24143D]/10
+          from-[#05080A]/90 via-transparent to-[#0D1317]/10
           opacity-70 transition-opacity duration-500
           group-hover:opacity-90
         " />
@@ -83,15 +82,15 @@ function Card({ person, hidden = false }) {
         <div className="
           pointer-events-none absolute bottom-0 left-0 right-0 z-30
           h-1 bg-gradient-to-r
-          from-[#62BEC2] via-[#D4AF37] to-[#62BEC2]
+          from-[#00FFFF] via-[#FFA500] to-[#00FFFF]
           opacity-80
         " />
 
         {/* Cyan Corner Accent */}
         <div className="
           pointer-events-none absolute right-3 top-3 z-30
-          h-3 w-3 rounded-full bg-[#62BEC2]
-          shadow-[0_0_15px_rgba(98,190,194,0.8)]
+          h-3 w-3 rounded-full bg-[#00FFFF]
+          shadow-[0_0_15px_rgba(0,255,255,0.8)]
         " />
       </div>
 
@@ -99,7 +98,7 @@ function Card({ person, hidden = false }) {
       <p className="
         mt-4 text-lg font-bold tracking-wide text-white
         transition-colors duration-300
-        group-hover:text-[#62BEC2]
+        group-hover:text-[#00FFFF]
       ">
         {person.name}
       </p>
@@ -108,7 +107,7 @@ function Card({ person, hidden = false }) {
       <p className="
         mx-auto mt-1 max-w-[13rem]
         text-xs font-semibold leading-relaxed
-        text-[#D4AF37]
+        text-[#FFA500]
       ">
         {person.role}
       </p>
@@ -126,7 +125,7 @@ export default function TeamMarquee({
   return (
     <section className="
       relative w-full overflow-hidden
-      bg-gradient-to-b from-[#24143D] via-[#190F29] to-black
+      bg-gradient-to-b from-[#0A1014] via-[#05080A] to-black
       py-16 sm:py-20
     ">
 
@@ -134,7 +133,7 @@ export default function TeamMarquee({
       <div className="
         pointer-events-none absolute left-1/2 top-0
         h-64 w-64 -translate-x-1/2 rounded-full
-        bg-[#62BEC2]/10 blur-[100px]
+        bg-[#00FFFF]/10 blur-[100px]
       " />
 
       <div className="relative z-10">
@@ -144,13 +143,13 @@ export default function TeamMarquee({
 
           <p className="
             mb-3 text-xs font-bold uppercase tracking-[0.4em]
-            text-[#62BEC2]
+            text-[#00FFFF]
           ">
             ME TIME CREATIVE TEAM
           </p>
 
           <h2 className="
-            mx-auto w-fit border-b-2 border-[#D4AF37]
+            mx-auto w-fit border-b-2 border-[#FFA500]
             pb-3 text-3xl font-bold text-white
             sm:text-4xl
           ">
@@ -160,11 +159,10 @@ export default function TeamMarquee({
           <p className="
             mt-5 text-sm font-medium text-gray-300
           ">
-            الناس اللي بتشتغل على نجاح براندك
-          </p>
+العقول المبدعة خلف نجاح وريادة علامتك التجارية.          </p>
 
           <p className="
-            mt-2 text-xs tracking-wide text-[#62BEC2]
+            mt-2 text-xs tracking-wide text-[#00FFFF]
           ">
             Creativity. Strategy. Real Growth.
           </p>
@@ -206,7 +204,7 @@ export default function TeamMarquee({
         <div className="
           mx-auto mt-14 h-px w-40
           bg-gradient-to-r from-transparent
-          via-[#D4AF37] to-transparent
+          via-[#FFA500] to-transparent
         " />
 
       </div>
