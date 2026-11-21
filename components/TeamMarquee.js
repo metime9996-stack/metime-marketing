@@ -7,13 +7,13 @@ const TEAM = [
     image: '/team/member1.jpg',
   },
   {
-    name: 'Aya Salah',
-    role: 'Motion Graphics & AI Specialist',
+    name: 'Shahd Y. Ibrahim',
+    role: 'HR & SEO Specialist',
     image: '/team/member2.jpg',
   },
   {
-    name: 'Shahd Y. Ibrahim',
-    role: 'HR & SEO Specialist',
+    name: 'Aya Salah',
+    role: 'Motion Graphics & AI Specialist',
     image: '/team/member3.jpg',
   },
   {
