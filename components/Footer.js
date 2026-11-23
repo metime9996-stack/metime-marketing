@@ -1,5 +1,5 @@
 "use client";
-import { FaFacebook, FaWhatsapp } from 'react-icons/fa';
+import { FaFacebook, FaWhatsapp, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -24,6 +24,17 @@ const Footer = () => {
           >
             <FaWhatsapp size={28} className="group-hover:scale-110 transition-transform" />
             <span className="text-lg font-medium">01551451375</span>
+          </a>
+
+          {/* إنستجرام */}
+          <a 
+            href="https://www.instagram.com/MeTime1996" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 hover:text-[#E4405F] transition-colors group"
+          >
+            <FaInstagram size={28} className="group-hover:scale-110 transition-transform" />
+            <span className="text-lg font-medium">Instagram</span>
           </a>
 
           {/* فيسبوك */}
