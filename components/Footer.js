@@ -28,7 +28,7 @@ const Footer = () => {
 
           {/* إنستجرام */}
           <a 
-            href="https://www.instagram.com/MeTime1996" 
+            href="https://www.instagram.com/me20time/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="flex items-center gap-2 hover:text-[#E4405F] transition-colors group"
