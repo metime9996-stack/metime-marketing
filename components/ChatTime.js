@@ -32,8 +32,15 @@ export default function ChatTime() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: next.slice(1) }),
       });
-      const data = await res.json();
-      setMessages((prev) => [...prev, { role: "bot", text: data.reply }]);
+      const data = await res.json().catch(() => null);
+      const replyText =
+        data && typeof data.reply === "string" && data.reply.trim()
+          ? data.reply
+          : res.status === 401
+            ? "الخدمة محتاجة سماح وصول من السيرفر حاليًا، تقدر تطلب خدمتك مباشرة من صفحة الطلبات."
+            : "حصلت مشكلة بسيطة في الرد، جرب تاني أو تواصل معانا واتساب.";
+
+      setMessages((prev) => [...prev, { role: "bot", text: replyText }]);
     } catch {
       setMessages((prev) => [...prev, { role: "bot", text: "حصل خطأ في الاتصال، جرب مرة تانية." }]);
     } finally {
