@@ -5,6 +5,7 @@ import { Bebas_Neue } from 'next/font/google';
 import TeamMarquee from '../components/TeamMarquee';
 import SudokuGame from '../components/SudokuGame';
 import ContactForm from '../components/ContactForm';
+import ChatTime from '../components/ChatTime';
 
 const bebas = Bebas_Neue({
   subsets: ['latin'],
@@ -133,11 +134,11 @@ export default function HomePage() {
             </button>
           </div>
 
-          <div className="relative flex items-center justify-center">
+          <div className="relative flex flex-col items-center justify-center">
             <img
               src={MODEL_SRC}
               alt="MeTime 3D"
-              className="relative max-h-[680px] w-full object-contain mix-blend-screen"
+              className="relative max-h-[540px] w-full object-contain mix-blend-screen"
               style={{
                 WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 16%)',
                 maskImage: 'linear-gradient(to right, transparent 0%, black 16%)',
@@ -146,6 +147,7 @@ export default function HomePage() {
                 e.currentTarget.style.display = 'none';
               }}
             />
+            <ChatTime />
           </div>
         </div>
       </div>
