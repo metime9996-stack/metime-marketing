@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'MeTime (Get It Now) Digital Marketing',
   description: 'MeTime (Get It Now) Digital Marketing - وكالة تسويق إلكتروني متكاملة لإدارة الإعلانات والسوشيال ميديا والتصميم الاحترافي',
+  verification: {
+    google: 'ojNg55jHDhzknlzZfoaC8r3JR0cs6HwZqzAu-syYHSc',
+  },
 }
 
 export default function RootLayout({ children }) {
