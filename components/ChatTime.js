@@ -3,15 +3,40 @@ import { useEffect, useRef, useState } from "react";
 
 const GREETING = {
   role: "bot",
-  text: "أهلاً بيك في شات تايم 👋 اسألني عن حملاتك الإعلانية أو باقات MeTime.",
+  text: "أهلاً بيك في Ask MeTime 👋 قولّي محتاج إيه في التسويق أو التصميم، وهساعدك خطوة بخطوة.",
 };
+
+const DESIGN_LIMIT = 2;
+const STORAGE_KEY = "metime_free_designs_used";
+
+function isDesignRequest(text) {
+  const t = text.toLowerCase();
+  return (
+    t.includes("تصميم") ||
+    t.includes("ديزاين") ||
+    t.includes("design") ||
+    t.includes("لوجو") ||
+    t.includes("logo") ||
+    t.includes("بنر") ||
+    t.includes("بوست") ||
+    t.includes("هوية")
+  );
+}
 
 export default function ChatTime() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([GREETING]);
+  const [designCount, setDesignCount] = useState(0);
   const endRef = useRef(null);
+
+  useEffect(() => {
+    try {
+      const saved = Number(localStorage.getItem(STORAGE_KEY) || "0");
+      if (!Number.isNaN(saved)) setDesignCount(saved);
+    } catch {}
+  }, []);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -24,37 +49,84 @@ export default function ChatTime() {
     const next = [...messages, { role: "user", text }];
     setMessages(next);
     setInput("");
-    setLoading(true);
 
+    const asksDesign = isDesignRequest(text);
+
+    if (asksDesign && designCount >= DESIGN_LIMIT) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "bot",
+          text: "كده خلصت التصميمين المجانيين المسموح بيهم 👍 من التصميم التالت وطالع بيكون بفلوس أو باشتراك شهري. تحب تشترك أو تطلب باقة تصميمات من صفحة الطلب؟",
+        },
+      ]);
+      return;
+    }
+
+    setLoading(true);
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: next.slice(1) }),
       });
+
       const data = await res.json().catch(() => null);
+
+      if (res.status === 401) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "bot",
+            text: "الرد التلقائي محتاج سماح وصول من إعدادات الحماية (Clerk) على مسار /api/chat. تقدر تطلب خدمتك مباشرة من هنا أو تكلمنا على واتساب.",
+          },
+        ]);
+        return;
+      }
+
       const replyText =
         data && typeof data.reply === "string" && data.reply.trim()
           ? data.reply
-          : res.status === 401
-            ? "الخدمة محتاجة سماح وصول من السيرفر حاليًا، تقدر تطلب خدمتك مباشرة من صفحة الطلبات."
-            : "حصلت مشكلة بسيطة في الرد، جرب تاني أو تواصل معانا واتساب.";
+          : "حصلت مشكلة بسيطة في الرد، جرب تاني دلوقتي.";
 
-      setMessages((prev) => [...prev, { role: "bot", text: replyText }]);
+      if (asksDesign && res.ok) {
+        const updated = designCount + 1;
+        setDesignCount(updated);
+        try {
+          localStorage.setItem(STORAGE_KEY, String(updated));
+        } catch {}
+
+        const remaining = Math.max(DESIGN_LIMIT - updated, 0);
+        const note =
+          remaining > 0
+            ? `\n\n(ملاحظة: ده تصميم رقم ${updated} من أصل ${DESIGN_LIMIT} مجانيين — متبقي لك ${remaining}).`
+            : `\n\n(ملاحظة: ده التصميم المجاني رقم ${DESIGN_LIMIT} والأخير؛ التصميم الجاي بيكون بفلوس أو اشتراك).`;
+
+        setMessages((prev) => [...prev, { role: "bot", text: replyText + note }]);
+      } else {
+        setMessages((prev) => [...prev, { role: "bot", text: replyText }]);
+      }
     } catch {
-      setMessages((prev) => [...prev, { role: "bot", text: "حصل خطأ في الاتصال، جرب مرة تانية." }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "bot", text: "حصل خطأ في الاتصال، جرب مرة تانية." },
+      ]);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50" dir="rtl">
+    <div className="fixed bottom-3 right-4 z-50" dir="rtl">
       {open ? (
         <div className="w-80 sm:w-96 bg-white border border-gray-200 rounded-2xl shadow-xl flex flex-col overflow-hidden">
           <div className="bg-black text-white px-4 py-3 flex justify-between items-center">
-            <span className="font-bold text-sm">شات تايم — MeTime AI</span>
-            <button onClick={() => setOpen(false)} aria-label="إغلاق الشات" className="text-gray-300 hover:text-white">
+            <span className="font-bold text-sm">Ask MeTime</span>
+            <button
+              onClick={() => setOpen(false)}
+              aria-label="إغلاق الشات"
+              className="text-gray-300 hover:text-white"
+            >
               ✕
             </button>
           </div>
@@ -76,9 +148,13 @@ export default function ChatTime() {
             <div ref={endRef} />
           </div>
 
-          <div className="px-3 py-2 border-t bg-white text-xs text-center">
+          <div className="px-3 py-2 border-t bg-white text-xs text-center flex items-center justify-center gap-3">
+            <a href="/order?package=design-ads" className="font-semibold underline">
+              اشتراك / طلب تصميم
+            </a>
+            <span>•</span>
             <a href="/order" className="font-medium underline">
-              جاهز تبدأ؟ اطلب خدمتك من هنا
+              كل الباقات
             </a>
           </div>
 
@@ -89,7 +165,7 @@ export default function ChatTime() {
               maxLength={500}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-              placeholder="اكتب سؤالك هنا..."
+              placeholder="اكتب سؤالك أو طلب التصميم..."
               className="flex-1 text-sm px-3 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-black"
             />
             <button
@@ -106,7 +182,7 @@ export default function ChatTime() {
           onClick={() => setOpen(true)}
           className="bg-black text-white px-5 py-3 rounded-full shadow-lg text-sm font-bold hover:opacity-90"
         >
-          💬 شات تايم
+          💬 Ask MeTime
         </button>
       )}
     </div>
